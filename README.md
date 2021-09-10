@@ -37,16 +37,13 @@ function signUp() {
   const photoURL = document.getElementById("photo").value;
   
   // Performing Sign Up Operation
-  createUserWithEmailAndPassword(auth, email, password)
+  firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
+      // Updating additional information
       const user = userCredential.user;
-      console.log(userCredential);
-      updateProfile(user, {
+      user.updateProfile({
         displayName,
         photoURL
       });
     })
-    .catch((error) => {
-      document.getElementById("error").innerHTML = error.message;
-    });
 };
